@@ -30,15 +30,28 @@
   .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
 
   /* Hero */
-  header { text-align: center; padding: 80px 24px 40px; }
+  header { text-align: center; padding: 80px 24px 40px; overflow: hidden; }
   .hero-dog {
     width: 200px; height: 200px; object-fit: contain;
     margin: 0 auto 12px; display: block;
-    animation: bob 3.5s ease-in-out infinite;
+    animation: walk 8s ease-in-out infinite;
   }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  /* 来回走：朝右走到右侧 → 翻转朝左走回 → 再翻转，循环 */
+  @keyframes walk {
+    0%   { transform: translateX(-110px) scaleX(1)  translateY(0); }
+    12%  { transform: translateX(-110px) scaleX(1)  translateY(-6px); }
+    24%  { transform: translateX(-110px) scaleX(1)  translateY(0); }
+    36%  { transform: translateX(110px)  scaleX(1)  translateY(-6px); }
+    48%  { transform: translateX(110px)  scaleX(1)  translateY(0); }
+    50%  { transform: translateX(110px)  scaleX(-1) translateY(0); }
+    62%  { transform: translateX(110px)  scaleX(-1) translateY(-6px); }
+    74%  { transform: translateX(-110px) scaleX(-1) translateY(0); }
+    86%  { transform: translateX(-110px) scaleX(-1) translateY(-6px); }
+    98%  { transform: translateX(-110px) scaleX(-1) translateY(0); }
+    100% { transform: translateX(-110px) scaleX(1)  translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-dog { animation: none; }
   }
   h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
   .tagline { font-size: 1.3rem; color: var(--ink-soft); margin-bottom: 8px; }
@@ -113,7 +126,7 @@
 </head>
 <body>
   <header>
-    <img src="crema-realistic.png" alt="Crema the dog" class="hero-dog">
+    <img src="crema-cartoon.png" alt="Crema the dog" class="hero-dog">
     <h1>Play with Crema 🐶</h1>
     <p class="tagline">A tiny dog that lives on your Mac desktop.</p>
     <p class="subtag">Naps while you type · sits when you click · eats files into the trash.</p>
