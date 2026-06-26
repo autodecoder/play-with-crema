@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play with Crema 🐶 — A tiny dog for your Mac desktop</title>
+<meta name="description" content="Crema is a lightweight desktop pet for macOS. A tiny dog that naps while you type, sits when you click, and eats files into the trash. Native Swift, ~40MB, almost 0% CPU.">
+<meta property="og:title" content="Play with Crema 🐶">
+<meta property="og:description" content="A tiny dog that lives on your Mac desktop. Naps while you type, eats files into the trash.">
+<meta property="og:image" content="crema-realistic.png">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --cream-2: #f1e9dc;
+    --ink: #3a3027;
+    --ink-soft: #6b5d4f;
+    --accent: #d99a5b;
+    --accent-dark: #c47e3d;
+    --card: #fffdf9;
+    --shadow: 0 8px 30px rgba(122, 94, 60, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  header { text-align: center; padding: 80px 24px 40px; }
+  .hero-dog {
+    width: 200px; height: 200px; object-fit: contain;
+    margin: 0 auto 12px; display: block;
+    animation: bob 3.5s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .tagline { font-size: 1.3rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .subtag { font-size: 1rem; color: var(--ink-soft); opacity: 0.8; }
+
+  /* Download */
+  .download { text-align: center; padding: 24px 0 48px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #fff;
+    font-size: 1.2rem; font-weight: 700;
+    padding: 16px 36px; border-radius: 16px;
+    text-decoration: none; box-shadow: var(--shadow);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-sub { margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
+  .btn-sub code {
+    background: var(--cream-2); padding: 2px 7px; border-radius: 6px;
+    font-size: 0.85rem;
+  }
+
+  /* Skins showcase */
+  .skins { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; padding: 24px 0 56px; }
+  .skin-card {
+    background: var(--card); border-radius: 20px; padding: 24px 32px;
+    box-shadow: var(--shadow); text-align: center;
+  }
+  .skin-card img { width: 130px; height: 130px; object-fit: contain; }
+  .skin-card .label { margin-top: 8px; font-weight: 700; color: var(--ink-soft); }
+
+  /* Features */
+  .features { padding: 8px 0 64px; }
+  .features h2 { text-align: center; font-size: 1.8rem; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .feat {
+    background: var(--card); border-radius: 16px; padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .feat .emoji { font-size: 2rem; }
+  .feat h3 { font-size: 1.1rem; margin: 10px 0 4px; }
+  .feat p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* Install steps */
+  .install {
+    background: var(--card); border-radius: 20px; padding: 36px;
+    box-shadow: var(--shadow); margin-bottom: 64px;
+  }
+  .install h2 { font-size: 1.5rem; margin-bottom: 20px; text-align: center; }
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 16px; margin-bottom: 18px; align-items: flex-start; }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    background: var(--accent); color: #fff; font-weight: 700;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 0.95rem;
+  }
+  .step p { padding-top: 2px; }
+  .note { background: var(--cream-2); border-radius: 12px; padding: 14px 18px; font-size: 0.9rem; color: var(--ink-soft); margin-top: 20px; }
+
+  /* Footer */
+  footer { text-align: center; padding: 40px 24px 60px; color: var(--ink-soft); font-size: 0.9rem; }
+  footer .req { margin-bottom: 8px; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .hero-dog { width: 150px; height: 150px; }
+    header { padding: 56px 20px 28px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <img src="crema-realistic.png" alt="Crema the dog" class="hero-dog">
+    <h1>Play with Crema 🐶</h1>
+    <p class="tagline">A tiny dog that lives on your Mac desktop.</p>
+    <p class="subtag">Naps while you type · sits when you click · eats files into the trash.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="download">
+      <a class="btn" href="Crema.dmg" download>⬇️&nbsp; Download for Mac</a>
+      <p class="btn-sub">Free · Apple Silicon (M1–M4) · macOS 14+ · Notarized, opens with a double-click</p>
+    </div>
+
+    <div class="skins">
+      <div class="skin-card">
+        <img src="crema-cartoon.png" alt="Cartoon Crema">
+        <div class="label">🎨 Cartoon</div>
+      </div>
+      <div class="skin-card">
+        <img src="crema-realistic.png" alt="Realistic Crema">
+        <div class="label">🐾 Realistic</div>
+      </div>
+    </div>
+
+    <section class="features">
+      <h2>What Crema does</h2>
+      <div class="grid">
+        <div class="feat"><div class="emoji">⌨️</div><h3>Naps while you type</h3><p>Curls up beside your work and sleeps until you stop typing.</p></div>
+        <div class="feat"><div class="emoji">👆</div><h3>Sits when you click</h3><p>Click Crema and it sits down to look at you.</p></div>
+        <div class="feat"><div class="emoji">✋</div><h3>Drag it around</h3><p>Move Crema anywhere. Won't wake it if it's asleep.</p></div>
+        <div class="feat"><div class="emoji">🗑️</div><h3>Eats files</h3><p>Drop a file on Crema — it eats it into the Trash (recoverable).</p></div>
+        <div class="feat"><div class="emoji">🖱️</div><h3>Right-click to switch</h3><p>Swap between cartoon &amp; realistic looks anytime.</p></div>
+        <div class="feat"><div class="emoji">🪶</div><h3>Featherweight</h3><p>Native Swift. ~40MB RAM, near 0% CPU when idle. Not Electron.</p></div>
+      </div>
+    </section>
+
+    <section class="install">
+      <h2>How to install</h2>
+      <div class="steps">
+        <div class="step"><p>Download <strong>Crema.dmg</strong> using the button above.</p></div>
+        <div class="step"><p>Double-click the downloaded <strong>Crema.dmg</strong> to open it.</p></div>
+        <div class="step"><p>Drag <strong>Crema</strong> into your <strong>Applications</strong> folder.</p></div>
+        <div class="step"><p>Open <strong>Applications</strong> and double-click <strong>Crema</strong>. Look at the <strong>bottom-left</strong> of your screen — there's your dog! 🐶</p></div>
+      </div>
+      <div class="note">
+        💡 Crema has no Dock or menu-bar icon — it's a pure desktop companion. To quit, right-click it and choose <strong>Quit</strong>.
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p class="req">Requires an Apple Silicon Mac (M1 or newer), macOS 14 or later.</p>
+    <p>Made with 🐾 — Crema is a real dog.</p>
+  </footer>
+</body>
+</html>
