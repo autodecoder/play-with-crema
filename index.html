@@ -68,6 +68,12 @@
     transition: transform 0.15s ease, background 0.15s ease;
   }
   .btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: var(--accent-dark);
+    box-shadow: inset 0 0 0 2px var(--accent);
+    margin-left: 10px;
+  }
+  .btn-ghost:hover { background: var(--cream-2); color: var(--accent-dark); }
   .btn-sub { margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
   .btn-sub code {
     background: var(--cream-2); padding: 2px 7px; border-radius: 6px;
@@ -94,6 +100,31 @@
   .feat .emoji { font-size: 2rem; }
   .feat h3 { font-size: 1.1rem; margin: 10px 0 4px; }
   .feat p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* Custom pet (paid) */
+  .custom {
+    background: linear-gradient(135deg, #3a4252, #232730);
+    border-radius: 24px; padding: 40px;
+    margin-bottom: 64px; box-shadow: var(--shadow);
+  }
+  .custom-inner {
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .custom-img {
+    width: 180px; height: 180px; object-fit: contain;
+    background: rgba(255,255,255,0.06); border-radius: 20px; padding: 10px;
+    flex-shrink: 0;
+  }
+  .custom-text { flex: 1; min-width: 260px; }
+  .custom-text h2 { color: #fff; font-size: 1.7rem; margin-bottom: 12px; }
+  .custom-text h2 em { color: var(--accent); font-style: normal; }
+  .custom-text p { color: #cfc9c0; margin-bottom: 18px; }
+  .custom-text .btn-sub { color: #a59e94; }
+  @media (max-width: 600px) {
+    .custom { padding: 28px; }
+    .custom-inner { flex-direction: column; text-align: center; }
+  }
 
   /* Install steps */
   .install {
@@ -135,7 +166,9 @@
   <div class="wrap">
     <div class="download">
       <a class="btn" href="Crema.dmg" download>⬇️&nbsp; Download for Mac</a>
-      <p class="btn-sub">Free · Any Mac (Intel &amp; Apple Silicon) · macOS 14+ · Notarized, opens with a double-click</p>
+      <a class="btn btn-ghost" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/7bcd37f0-e532-488d-ace1-05bf65c19632" target="_blank" rel="noopener">🔓&nbsp; Buy a License</a>
+      <p class="btn-sub">Free to try · Any Mac (Intel &amp; Apple Silicon) · macOS 14+ · Notarized, opens with a double-click</p>
+      <p class="btn-sub">Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.</p>
     </div>
 
     <div class="skins">
@@ -158,6 +191,19 @@
         <div class="feat"><div class="emoji">🗑️</div><h3>Eats files</h3><p>Drop a file on Crema — it eats it into the Trash (recoverable).</p></div>
         <div class="feat"><div class="emoji">🖱️</div><h3>Right-click to switch</h3><p>Swap between cartoon &amp; realistic looks anytime.</p></div>
         <div class="feat"><div class="emoji">🪶</div><h3>Featherweight</h3><p>Native Swift. ~40MB RAM, near 0% CPU when idle. Not Electron.</p></div>
+      </div>
+    </section>
+
+    <section class="custom">
+      <div class="custom-inner">
+        <img src="crema-custom.png" alt="A custom pet" class="custom-img">
+        <div class="custom-text">
+          <h2>Want your <em>own</em> pet? 🐾</h2>
+          <p><strong>Custom pets are coming July 26th.</strong> Send up to 5 photos of your dog, cat — any pet — and we'll turn it into your very own desktop companion, with the same naps, sits, and file-snacking as Crema.</p>
+          <p>Upload your photos now and we'll have your custom pet ready at launch. 📸</p>
+          <a class="btn" href="https://tally.so/r/REPLACE-ME" target="_blank" rel="noopener">📸&nbsp; Upload Your Pet's Photos</a>
+          <p class="btn-sub">Coming July 26 · upload now to be first in line.</p>
+        </div>
       </div>
     </section>
 
