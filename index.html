@@ -50,8 +50,19 @@
     98%  { transform: translateX(-110px) scaleX(-1) translateY(0); }
     100% { transform: translateX(-110px) scaleX(1)  translateY(0); }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-dog { animation: none; }
+  /* 手机端：行程更小，狗不撞出窄屏 */
+  @keyframes walk-sm {
+    0%   { transform: translateX(-60px) scaleX(1)  translateY(0); }
+    12%  { transform: translateX(-60px) scaleX(1)  translateY(-5px); }
+    24%  { transform: translateX(-60px) scaleX(1)  translateY(0); }
+    36%  { transform: translateX(60px)  scaleX(1)  translateY(-5px); }
+    48%  { transform: translateX(60px)  scaleX(1)  translateY(0); }
+    50%  { transform: translateX(60px)  scaleX(-1) translateY(0); }
+    62%  { transform: translateX(60px)  scaleX(-1) translateY(-5px); }
+    74%  { transform: translateX(-60px) scaleX(-1) translateY(0); }
+    86%  { transform: translateX(-60px) scaleX(-1) translateY(-5px); }
+    98%  { transform: translateX(-60px) scaleX(-1) translateY(0); }
+    100% { transform: translateX(-60px) scaleX(1)  translateY(0); }
   }
   h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
   .tagline { font-size: 1.3rem; color: var(--ink-soft); margin-bottom: 8px; }
@@ -150,8 +161,11 @@
 
   @media (max-width: 600px) {
     h1 { font-size: 2.2rem; }
-    .hero-dog { width: 150px; height: 150px; }
+    .hero-dog { width: 150px; height: 150px; animation: walk-sm 8s ease-in-out infinite; }
     header { padding: 56px 20px 28px; }
+    /* 按钮竖排、各占一行、垂直留间距，避免重叠 */
+    .btn { display: flex; width: fit-content; margin: 8px auto; }
+    .btn-ghost { margin-left: auto; }
   }
 </style>
 </head>
