@@ -29,6 +29,29 @@
   }
   .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
 
+  /* 右上角语言切换 */
+  .lang-switch { position: fixed; top: 18px; right: 18px; z-index: 10; }
+  .lang-switch select {
+    font-family: inherit; font-size: 0.9rem; font-weight: 600;
+    color: var(--ink-soft);
+    background: rgba(255,253,249,0.85);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border: 1px solid rgba(122,94,60,0.15);
+    border-radius: 999px;
+    padding: 8px 34px 8px 16px; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(122,94,60,0.12);
+    appearance: none; -webkit-appearance: none;
+    /* 自定义下拉箭头 */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b5d4f' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .lang-switch select:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(122,94,60,0.18);
+  }
+
   /* Hero */
   header { text-align: center; padding: 80px 24px 40px; overflow: hidden; }
   .hero-dog {
@@ -173,46 +196,56 @@
 </style>
 </head>
 <body>
+  <div class="lang-switch">
+    <select id="langSelect" aria-label="Language">
+      <option value="en">English</option>
+      <option value="zh">简体中文</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+
   <header>
     <img src="crema-cartoon.png" alt="Crema the dog" class="hero-dog">
     <h1>Play with Crema 🐶</h1>
-    <p class="tagline">A tiny dog that lives on your desktop.</p>
-    <p class="subtag">Naps while you type · sits when you click · eats files into the trash. For Mac &amp; Windows.</p>
+    <p class="tagline" data-i18n="tagline">A tiny dog that lives on your desktop.</p>
+    <p class="subtag" data-i18n="subtag">Naps while you type · sits when you click · eats files into the trash. For Mac &amp; Windows.</p>
   </header>
 
   <div class="wrap">
     <div class="download">
       <div class="btn-row">
-        <a class="btn" href="Crema.dmg" download>🍎&nbsp; Download for Mac</a>
-        <a class="btn" href="https://github.com/autodecoder/play-with-crema/releases/download/win-v1/Crema-Windows.zip">🪟&nbsp; Download for Windows</a>
+        <a class="btn" href="Crema.dmg" download>🍎&nbsp; <span data-i18n="dlMac">Download for Mac</span></a>
+        <a class="btn" href="https://github.com/autodecoder/play-with-crema/releases/download/win-v1/Crema-Windows.zip">🪟&nbsp; <span data-i18n="dlWin">Download for Windows</span></a>
       </div>
-      <p class="btn-sub" style="margin-bottom:24px;">Free to try · works on Mac &amp; Windows</p>
+      <p class="btn-sub" style="margin-bottom:24px;" data-i18n="dlSub">Free to try · works on Mac &amp; Windows</p>
       <div class="btn-row">
-        <a class="btn btn-ghost" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/7bcd37f0-e532-488d-ace1-05bf65c19632" target="_blank" rel="noopener">🔓&nbsp; Buy a License</a>
+        <a class="btn btn-ghost" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/7bcd37f0-e532-488d-ace1-05bf65c19632" target="_blank" rel="noopener">🔓&nbsp; <span data-i18n="buy">Buy a License</span></a>
       </div>
-      <p class="btn-sub">Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.</p>
+      <p class="btn-sub" data-i18n="buySub">Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.</p>
     </div>
 
     <div class="skins">
       <div class="skin-card">
         <img src="crema-cartoon.png" alt="Cartoon Crema">
-        <div class="label">🎨 Cartoon</div>
+        <div class="label" data-i18n="skinCartoon">🎨 Cartoon</div>
       </div>
       <div class="skin-card">
         <img src="crema-realistic.png" alt="Realistic Crema">
-        <div class="label">🐾 Realistic</div>
+        <div class="label" data-i18n="skinRealistic">🐾 Realistic</div>
       </div>
     </div>
 
     <section class="features">
-      <h2>What Crema does</h2>
+      <h2 data-i18n="featTitle">What Crema does</h2>
       <div class="grid">
-        <div class="feat"><div class="emoji">⌨️</div><h3>Naps while you type</h3><p>Curls up beside your work and sleeps until you stop typing.</p></div>
-        <div class="feat"><div class="emoji">👆</div><h3>Sits when you click</h3><p>Click Crema and it sits down to look at you.</p></div>
-        <div class="feat"><div class="emoji">✋</div><h3>Drag it around</h3><p>Move Crema anywhere. Won't wake it if it's asleep.</p></div>
-        <div class="feat"><div class="emoji">🗑️</div><h3>Eats files</h3><p>Drop a file on Crema — it eats it into the Trash (recoverable).</p></div>
-        <div class="feat"><div class="emoji">🖱️</div><h3>Right-click to switch</h3><p>Swap between cartoon &amp; realistic looks anytime.</p></div>
-        <div class="feat"><div class="emoji">🪶</div><h3>Featherweight</h3><p>Tiny and quiet — sits in the corner without slowing your computer down.</p></div>
+        <div class="feat"><div class="emoji">⌨️</div><h3 data-i18n="f1t">Naps while you type</h3><p data-i18n="f1d">Curls up beside your work and sleeps until you stop typing.</p></div>
+        <div class="feat"><div class="emoji">👆</div><h3 data-i18n="f2t">Sits when you click</h3><p data-i18n="f2d">Click Crema and it sits down to look at you.</p></div>
+        <div class="feat"><div class="emoji">✋</div><h3 data-i18n="f3t">Drag it around</h3><p data-i18n="f3d">Move Crema anywhere. Won't wake it if it's asleep.</p></div>
+        <div class="feat"><div class="emoji">🗑️</div><h3 data-i18n="f4t">Eats files</h3><p data-i18n="f4d">Drop a file on Crema — it eats it into the Trash (recoverable).</p></div>
+        <div class="feat"><div class="emoji">🖱️</div><h3 data-i18n="f5t">Right-click to switch</h3><p data-i18n="f5d">Swap between cartoon &amp; realistic looks anytime.</p></div>
+        <div class="feat"><div class="emoji">🪶</div><h3 data-i18n="f6t">Featherweight</h3><p data-i18n="f6d">Tiny and quiet — sits in the corner without slowing your computer down.</p></div>
       </div>
     </section>
 
@@ -220,40 +253,227 @@
       <div class="custom-inner">
         <img src="crema-custom.png" alt="A custom pet" class="custom-img">
         <div class="custom-text">
-          <h2>Want your <em>own</em> pet? 🐾</h2>
-          <p>Any pet — dog, cat, anything. Send up to 5 photos and we'll turn it into your very own desktop companion, with the same naps, sits, and file-snacking as Crema.</p>
-          <p>After checkout you'll be taken to a page to upload your pet's photos. We'll email your custom pet to you. 📸</p>
-          <a class="btn" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/45aceca6-81d2-469c-89e1-e579fa28d734" target="_blank" rel="noopener">🎨&nbsp; Get Your Custom Pet</a>
-          <p class="btn-sub">Pre-order · delivered from July 26 · upload photos right after checkout.</p>
+          <h2 data-i18n="customTitle">Want your <em>own</em> pet? 🐾</h2>
+          <p data-i18n="customP1">Any pet — dog, cat, anything. Send up to 5 photos and we'll turn it into your very own desktop companion, with the same naps, sits, and file-snacking as Crema.</p>
+          <p data-i18n="customP2">After checkout you'll be taken to a page to upload your pet's photos. We'll email your custom pet to you. 📸</p>
+          <a class="btn" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/45aceca6-81d2-469c-89e1-e579fa28d734" target="_blank" rel="noopener">🎨&nbsp; <span data-i18n="customBtn">Get Your Custom Pet</span></a>
+          <p class="btn-sub" data-i18n="customSub">Pre-order · delivered from July 26 · upload photos right after checkout.</p>
         </div>
       </div>
     </section>
 
     <section class="install">
-      <h2>How to install</h2>
+      <h2 data-i18n="installTitle">How to install</h2>
 
-      <h3 style="margin:8px 0 12px;color:var(--ink-soft);">🍎 Mac</h3>
+      <h3 style="margin:8px 0 12px;color:var(--ink-soft);" data-i18n="installMac">🍎 Mac</h3>
       <div class="steps">
-        <div class="step"><p>Open <strong>Crema.dmg</strong> and drag Crema into your <strong>Applications</strong> folder.</p></div>
-        <div class="step"><p>Open Crema — your dog appears at the <strong>bottom-left</strong> of the screen. 🐶</p></div>
+        <div class="step"><p data-i18n="mac1">Open <strong>Crema.dmg</strong> and drag Crema into your <strong>Applications</strong> folder.</p></div>
+        <div class="step"><p data-i18n="mac2">Open Crema — your dog appears at the <strong>bottom-left</strong> of the screen. 🐶</p></div>
       </div>
 
-      <h3 style="margin:20px 0 12px;color:var(--ink-soft);">🪟 Windows</h3>
+      <h3 style="margin:20px 0 12px;color:var(--ink-soft);" data-i18n="installWin">🪟 Windows</h3>
       <div class="steps">
-        <div class="step"><p>Unzip the download and open <strong>Crema.exe</strong>.</p></div>
-        <div class="step"><p>If Windows shows a warning, click <strong>More info → Run anyway</strong>.</p></div>
-        <div class="step"><p>Your dog appears at the <strong>bottom-left</strong>. 🐶</p></div>
+        <div class="step"><p data-i18n="win1">Unzip the download and open <strong>Crema.exe</strong>.</p></div>
+        <div class="step"><p data-i18n="win2">If Windows shows a warning, click <strong>More info → Run anyway</strong>.</p></div>
+        <div class="step"><p data-i18n="win3">Your dog appears at the <strong>bottom-left</strong>. 🐶</p></div>
       </div>
 
-      <div class="note">
-        💡 To quit, right-click Crema and choose <strong>Quit</strong>.
-      </div>
+      <div class="note" data-i18n="quitNote">💡 To quit, right-click Crema and choose <strong>Quit</strong>.</div>
     </section>
   </div>
 
   <footer>
-    <p class="req">For Mac &amp; Windows.</p>
-    <p>Made with 🐾 — Crema is a real dog.</p>
+    <p class="req" data-i18n="footReq">For Mac &amp; Windows.</p>
+    <p data-i18n="footMade">Made with 🐾 — Crema is a real dog.</p>
   </footer>
+
+  <script>
+  const I18N = {
+    en: {
+      title: "Play with Crema 🐶 — a tiny dog for your desktop",
+      tagline: "A tiny dog that lives on your desktop.",
+      subtag: "Naps while you type · sits when you click · eats files into the trash. For Mac &amp; Windows.",
+      dlMac: "Download for Mac", dlWin: "Download for Windows",
+      dlSub: "Free to try · works on Mac &amp; Windows",
+      buy: "Buy a License",
+      buySub: "Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.",
+      skinCartoon: "🎨 Cartoon", skinRealistic: "🐾 Realistic",
+      featTitle: "What Crema does",
+      f1t: "Naps while you type", f1d: "Curls up beside your work and sleeps until you stop typing.",
+      f2t: "Sits when you click", f2d: "Click Crema and it sits down to look at you.",
+      f3t: "Drag it around", f3d: "Move Crema anywhere. Won't wake it if it's asleep.",
+      f4t: "Eats files", f4d: "Drop a file on Crema — it eats it into the Trash (recoverable).",
+      f5t: "Right-click to switch", f5d: "Swap between cartoon &amp; realistic looks anytime.",
+      f6t: "Featherweight", f6d: "Tiny and quiet — sits in the corner without slowing your computer down.",
+      customTitle: "Want your <em>own</em> pet? 🐾",
+      customP1: "Any pet — dog, cat, anything. Send up to 5 photos and we'll turn it into your very own desktop companion, with the same naps, sits, and file-snacking as Crema.",
+      customP2: "After checkout you'll be taken to a page to upload your pet's photos. We'll email your custom pet to you. 📸",
+      customBtn: "Get Your Custom Pet",
+      customSub: "Pre-order · delivered from July 26 · upload photos right after checkout.",
+      installTitle: "How to install", installMac: "🍎 Mac", installWin: "🪟 Windows",
+      mac1: "Open <strong>Crema.dmg</strong> and drag Crema into your <strong>Applications</strong> folder.",
+      mac2: "Open Crema — your dog appears at the <strong>bottom-left</strong> of the screen. 🐶",
+      win1: "Unzip the download and open <strong>Crema.exe</strong>.",
+      win2: "If Windows shows a warning, click <strong>More info → Run anyway</strong>.",
+      win3: "Your dog appears at the <strong>bottom-left</strong>. 🐶",
+      quitNote: "💡 To quit, right-click Crema and choose <strong>Quit</strong>.",
+      footReq: "For Mac &amp; Windows.", footMade: "Made with 🐾 — Crema is a real dog."
+    },
+    zh: {
+      title: "Play with Crema 🐶 — 住在桌面上的小狗",
+      tagline: "一只住在你桌面上的小狗。",
+      subtag: "你打字时它睡觉 · 点它就坐下 · 把文件吃进废纸篓。支持 Mac 和 Windows。",
+      dlMac: "下载 Mac 版", dlWin: "下载 Windows 版",
+      dlSub: "免费试用 · 支持 Mac 和 Windows",
+      buy: "购买激活码",
+      buySub: "用激活码解锁完整版 —— 右键狗狗 →「输入激活码」。有优惠码？结账时输入即可。",
+      skinCartoon: "🎨 卡通版", skinRealistic: "🐾 写实版",
+      featTitle: "Crema 会做什么",
+      f1t: "打字时睡觉陪你", f1d: "在你工作旁边蜷起来睡，直到你停下打字。",
+      f2t: "点击就坐下", f2d: "点一下 Crema，它就坐下抬头看你。",
+      f3t: "随意拖动", f3d: "把 Crema 拖到任意位置；睡着时拖不会吵醒它。",
+      f4t: "吃掉文件", f4d: "把文件拖到 Crema 身上，它吃进废纸篓（可还原）。",
+      f5t: "右键换皮肤", f5d: "随时在卡通 / 写实之间切换。",
+      f6t: "极其轻量", f6d: "小巧安静，待在角落也不拖慢你的电脑。",
+      customTitle: "想要一只<em>你自己</em>的宠物？🐾",
+      customP1: "任何宠物 —— 狗、猫、都行。上传最多 5 张照片，我们把它变成你专属的桌面伙伴，和 Crema 一样会睡觉、坐下、吃文件。",
+      customP2: "付款后会跳转到上传照片的页面，我们做好后把你的专属宠物发到你邮箱。📸",
+      customBtn: "定制你的专属宠物",
+      customSub: "预购 · 7 月 26 日起交付 · 付款后即可上传照片。",
+      installTitle: "如何安装", installMac: "🍎 Mac", installWin: "🪟 Windows",
+      mac1: "打开 <strong>Crema.dmg</strong>，把 Crema 拖进<strong>「应用程序」</strong>文件夹。",
+      mac2: "打开 Crema —— 小狗出现在屏幕<strong>左下角</strong>。🐶",
+      win1: "解压下载的文件，打开 <strong>Crema.exe</strong>。",
+      win2: "若 Windows 弹出提示，点<strong>「更多信息 → 仍要运行」</strong>。",
+      win3: "小狗出现在屏幕<strong>左下角</strong>。🐶",
+      quitNote: "💡 退出：右键 Crema，选择<strong>「退出」</strong>。",
+      footReq: "支持 Mac 和 Windows。", footMade: "用 🐾 做成 —— Crema 是一只真实存在的小狗。"
+    },
+    ja: {
+      title: "Play with Crema 🐶 — デスクトップに住む小さな犬",
+      tagline: "デスクトップに住む小さな犬。",
+      subtag: "入力中は眠り · クリックで座り · ファイルをゴミ箱に食べる。Mac と Windows 対応。",
+      dlMac: "Mac 版をダウンロード", dlWin: "Windows 版をダウンロード",
+      dlSub: "無料でお試し · Mac と Windows 対応",
+      buy: "ライセンスを購入",
+      buySub: "ライセンスキーで完全版を解除 —— 右クリック →「ライセンス入力」。プロモコードはチェックアウトで入力。",
+      skinCartoon: "🎨 カートゥーン", skinRealistic: "🐾 リアル",
+      featTitle: "Crema にできること",
+      f1t: "入力中は眠る", f1d: "作業のそばで丸くなり、入力をやめるまで眠ります。",
+      f2t: "クリックで座る", f2d: "Crema をクリックすると座って見上げます。",
+      f3t: "ドラッグで移動", f3d: "どこへでも移動。寝ているときは起こしません。",
+      f4t: "ファイルを食べる", f4d: "ファイルを Crema にドロップするとゴミ箱へ（復元可）。",
+      f5t: "右クリックで切替", f5d: "カートゥーンとリアルをいつでも切り替え。",
+      f6t: "超軽量", f6d: "小さく静か。隅にいてもPCを重くしません。",
+      customTitle: "<em>自分だけ</em>のペットが欲しい？🐾",
+      customP1: "どんなペットでも —— 犬、猫、なんでも。写真を最大5枚送ると、Crema と同じように眠り・座り・ファイルを食べる、あなただけのデスクトップの相棒にします。",
+      customP2: "購入後、写真をアップロードするページに移動します。完成したらメールでお届けします。📸",
+      customBtn: "カスタムペットを作る",
+      customSub: "予約販売 · 7月26日以降お届け · 購入後すぐ写真をアップロード。",
+      installTitle: "インストール方法", installMac: "🍎 Mac", installWin: "🪟 Windows",
+      mac1: "<strong>Crema.dmg</strong> を開き、Crema を<strong>「アプリケーション」</strong>フォルダにドラッグ。",
+      mac2: "Crema を開くと、犬が画面の<strong>左下</strong>に現れます。🐶",
+      win1: "ダウンロードを解凍し、<strong>Crema.exe</strong> を開きます。",
+      win2: "警告が出たら<strong>「詳細情報 → 実行」</strong>をクリック。",
+      win3: "犬が画面の<strong>左下</strong>に現れます。🐶",
+      quitNote: "💡 終了：Crema を右クリックして<strong>「終了」</strong>を選択。",
+      footReq: "Mac と Windows 対応。", footMade: "🐾 で作りました —— Crema は実在する犬です。"
+    },
+    ko: {
+      title: "Play with Crema 🐶 — 데스크톱에 사는 작은 강아지",
+      tagline: "데스크톱에 사는 작은 강아지.",
+      subtag: "타이핑하면 잠자고 · 클릭하면 앉고 · 파일을 휴지통에 먹어요. Mac과 Windows 지원.",
+      dlMac: "Mac용 다운로드", dlWin: "Windows용 다운로드",
+      dlSub: "무료 체험 · Mac과 Windows 지원",
+      buy: "라이선스 구매",
+      buySub: "라이선스 키로 정식 버전 잠금 해제 —— 우클릭 →「라이선스 입력」. 프로모 코드는 결제 시 입력하세요.",
+      skinCartoon: "🎨 카툰", skinRealistic: "🐾 리얼",
+      featTitle: "Crema가 하는 일",
+      f1t: "타이핑하면 잠자기", f1d: "작업 옆에서 웅크려 자다가 타이핑을 멈추면 깨어나요.",
+      f2t: "클릭하면 앉기", f2d: "Crema를 클릭하면 앉아서 올려다봐요.",
+      f3t: "드래그로 이동", f3d: "어디든 옮기세요. 자고 있을 땐 깨우지 않아요.",
+      f4t: "파일 먹기", f4d: "파일을 Crema에 드롭하면 휴지통으로 (복원 가능).",
+      f5t: "우클릭으로 전환", f5d: "카툰과 리얼을 언제든 전환하세요.",
+      f6t: "초경량", f6d: "작고 조용해요. 구석에 있어도 컴퓨터를 느리게 하지 않아요.",
+      customTitle: "<em>나만의</em> 반려동물을 원하나요? 🐾",
+      customP1: "어떤 반려동물이든 —— 개, 고양이, 무엇이든. 사진을 최대 5장 보내주시면 Crema처럼 자고, 앉고, 파일을 먹는 나만의 데스크톱 친구로 만들어 드려요.",
+      customP2: "결제 후 사진 업로드 페이지로 이동합니다. 완성되면 이메일로 보내드려요. 📸",
+      customBtn: "나만의 반려동물 만들기",
+      customSub: "예약 구매 · 7월 26일부터 전달 · 결제 후 바로 사진 업로드.",
+      installTitle: "설치 방법", installMac: "🍎 Mac", installWin: "🪟 Windows",
+      mac1: "<strong>Crema.dmg</strong>를 열고 Crema를 <strong>응용 프로그램</strong> 폴더로 드래그하세요.",
+      mac2: "Crema를 열면 강아지가 화면 <strong>왼쪽 아래</strong>에 나타나요. 🐶",
+      win1: "다운로드를 압축 해제하고 <strong>Crema.exe</strong>를 여세요.",
+      win2: "Windows 경고가 뜨면 <strong>추가 정보 → 실행</strong>을 클릭하세요.",
+      win3: "강아지가 화면 <strong>왼쪽 아래</strong>에 나타나요. 🐶",
+      quitNote: "💡 종료: Crema를 우클릭하고 <strong>종료</strong>를 선택하세요.",
+      footReq: "Mac과 Windows 지원.", footMade: "🐾로 만들었어요 —— Crema는 실제 강아지예요."
+    },
+    es: {
+      title: "Play with Crema 🐶 — un perrito para tu escritorio",
+      tagline: "Un perrito que vive en tu escritorio.",
+      subtag: "Duerme mientras escribes · se sienta al hacer clic · se come archivos a la papelera. Para Mac y Windows.",
+      dlMac: "Descargar para Mac", dlWin: "Descargar para Windows",
+      dlSub: "Gratis para probar · funciona en Mac y Windows",
+      buy: "Comprar licencia",
+      buySub: "Desbloquea la versión completa con una clave —— clic derecho →「Introducir licencia」. ¿Tienes un código promocional? Úsalo al pagar.",
+      skinCartoon: "🎨 Caricatura", skinRealistic: "🐾 Realista",
+      featTitle: "Qué hace Crema",
+      f1t: "Duerme mientras escribes", f1d: "Se acurruca junto a tu trabajo y duerme hasta que dejas de escribir.",
+      f2t: "Se sienta al hacer clic", f2d: "Haz clic en Crema y se sienta a mirarte.",
+      f3t: "Arrástralo", f3d: "Mueve a Crema a donde quieras. No lo despertará si está dormido.",
+      f4t: "Se come archivos", f4d: "Suelta un archivo sobre Crema y se lo come a la papelera (recuperable).",
+      f5t: "Clic derecho para cambiar", f5d: "Cambia entre estilo caricatura y realista cuando quieras.",
+      f6t: "Muy ligero", f6d: "Pequeño y silencioso: vive en una esquina sin ralentizar tu equipo.",
+      customTitle: "¿Quieres <em>tu propia</em> mascota? 🐾",
+      customP1: "Cualquier mascota —— perro, gato, lo que sea. Envía hasta 5 fotos y la convertimos en tu propio compañero de escritorio, que duerme, se sienta y come archivos como Crema.",
+      customP2: "Tras el pago irás a una página para subir las fotos de tu mascota. Te enviaremos tu mascota por correo. 📸",
+      customBtn: "Consigue tu mascota",
+      customSub: "Reserva · entrega desde el 26 de julio · sube las fotos justo tras pagar.",
+      installTitle: "Cómo instalar", installMac: "🍎 Mac", installWin: "🪟 Windows",
+      mac1: "Abre <strong>Crema.dmg</strong> y arrastra Crema a tu carpeta <strong>Aplicaciones</strong>.",
+      mac2: "Abre Crema —— tu perro aparece en la <strong>esquina inferior izquierda</strong>. 🐶",
+      win1: "Descomprime la descarga y abre <strong>Crema.exe</strong>.",
+      win2: "Si Windows muestra un aviso, haz clic en <strong>Más información → Ejecutar de todas formas</strong>.",
+      win3: "Tu perro aparece en la <strong>esquina inferior izquierda</strong>. 🐶",
+      quitNote: "💡 Para salir, haz clic derecho en Crema y elige <strong>Salir</strong>.",
+      footReq: "Para Mac y Windows.", footMade: "Hecho con 🐾 —— Crema es un perro real."
+    }
+  };
+
+  function applyLang(lang) {
+    const dict = I18N[lang] || I18N.en;
+    document.documentElement.lang = lang;
+    if (dict.title) document.title = dict.title;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key] != null) el.innerHTML = dict[key];
+    });
+    const sel = document.getElementById("langSelect");
+    if (sel) sel.value = lang;
+    try { localStorage.setItem("crema.lang", lang); } catch (e) {}
+  }
+
+  function pickLang() {
+    try {
+      const saved = localStorage.getItem("crema.lang");
+      if (saved && I18N[saved]) return saved;
+    } catch (e) {}
+    // 浏览器语言自动匹配
+    const langs = navigator.languages || [navigator.language || "en"];
+    for (const l of langs) {
+      const code = l.toLowerCase();
+      if (code.startsWith("zh")) return "zh";
+      if (code.startsWith("ja")) return "ja";
+      if (code.startsWith("ko")) return "ko";
+      if (code.startsWith("es")) return "es";
+      if (code.startsWith("en")) return "en";
+    }
+    return "en";
+  }
+
+  document.getElementById("langSelect").addEventListener("change", e => applyLang(e.target.value));
+  applyLang(pickLang());
+  </script>
 </body>
 </html>
