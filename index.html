@@ -103,6 +103,7 @@
     font-size: 1.2rem; font-weight: 700;
     padding: 16px 36px; border-radius: 16px;
     text-decoration: none; box-shadow: var(--shadow);
+    border: none; cursor: pointer; font-family: inherit;
     transition: transform 0.15s ease, background 0.15s ease;
   }
   .btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
@@ -179,6 +180,47 @@
   .contact-link { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
   .contact-link:hover { text-decoration: underline; }
 
+  /* Choice modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(35, 30, 24, 0.55);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--card); border-radius: 22px;
+    padding: 32px 28px; max-width: 440px; width: 100%;
+    box-shadow: 0 20px 60px rgba(122,94,60,0.28);
+    position: relative;
+  }
+  .modal h3 { font-size: 1.35rem; text-align: center; margin-bottom: 6px; }
+  .modal .modal-sub { text-align: center; color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 22px; }
+  .modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.4rem; line-height: 1; color: var(--ink-soft);
+    padding: 4px; border-radius: 8px;
+  }
+  .modal-close:hover { color: var(--ink); }
+  .modal-choice {
+    display: flex; align-items: flex-start; gap: 14px;
+    text-align: left; text-decoration: none;
+    background: var(--cream); color: var(--ink);
+    border: 1px solid rgba(122,94,60,0.14); border-radius: 16px;
+    padding: 16px 18px; margin-bottom: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .modal-choice:last-child { margin-bottom: 0; }
+  .modal-choice:hover {
+    transform: translateY(-2px); background: var(--cream-2);
+    box-shadow: 0 8px 22px rgba(122,94,60,0.16);
+  }
+  .modal-choice .mc-emoji { font-size: 1.7rem; flex-shrink: 0; line-height: 1.2; }
+  .modal-choice .mc-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 2px; }
+  .modal-choice .mc-desc { color: var(--ink-soft); font-size: 0.9rem; }
+
   @media (max-width: 600px) {
     h1 { font-size: 2.2rem; }
     .hero-dog { width: 150px; height: 150px; animation: walk-sm 8s ease-in-out infinite; }
@@ -215,7 +257,7 @@
       </div>
       <p class="btn-sub" style="margin-bottom:24px;" data-i18n="dlSub">Free to download · unlock the full version with a license key.</p>
       <div class="btn-row">
-        <a class="btn btn-ghost" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/7bcd37f0-e532-488d-ace1-05bf65c19632" target="_blank" rel="noopener">🔓&nbsp; <span data-i18n="buy">Buy a License</span></a>
+        <button type="button" class="btn btn-ghost" data-open-buy>🔓&nbsp; <span data-i18n="buy">Buy a License</span></button>
       </div>
       <p class="btn-sub" data-i18n="buySub">Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.</p>
       <p style="margin-top:18px;"><a href="#custom" class="contact-link" style="font-size:1.05rem;" data-i18n="heroCustomLink">🐾 …or move your own pet in →</a></p>
@@ -228,7 +270,7 @@
           <h2 data-i18n="customTitle">Move <em>your own pet</em> onto your desktop 🐾</h2>
           <p data-i18n="customP1">Miss them while you work? Send up to 3 photos of your own pet — your dog, your cat, the one waiting at home — and we'll bring them to your desktop. It naps, sits, and snacks on files just like Crema, but it's yours: your pet's face, your pet's fur, right beside you all day.</p>
           <p data-i18n="customP2">After checkout you'll upload your pet's photos. We craft it by hand and email your very own desktop pet to you. 📸</p>
-          <a class="btn" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/45aceca6-81d2-469c-89e1-e579fa28d734" target="_blank" rel="noopener">🐾&nbsp; <span data-i18n="customBtn">Move Mine In</span></a>
+          <button type="button" class="btn" data-open-buy>🐾&nbsp; <span data-i18n="customBtn">Move Mine In</span></button>
           <p class="btn-sub" data-i18n="customSub">Pre-order · delivered from July 26 · upload photos right after checkout.</p>
         </div>
       </div>
@@ -266,6 +308,28 @@
     </section>
   </div>
 
+  <div class="modal-overlay" id="buyModal" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+    <div class="modal">
+      <button type="button" class="modal-close" data-close-buy aria-label="Close">&times;</button>
+      <h3 id="buyModalTitle" data-i18n="modalTitle">What would you like?</h3>
+      <p class="modal-sub" data-i18n="modalSub">Two different things — pick one.</p>
+      <a class="modal-choice" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/7bcd37f0-e532-488d-ace1-05bf65c19632" target="_blank" rel="noopener">
+        <span class="mc-emoji">🔓</span>
+        <span>
+          <span class="mc-title" data-i18n="modalBuyTitle">Buy Crema, the dog</span>
+          <span class="mc-desc" data-i18n="modalBuyDesc">Unlock the desktop dog you just downloaded with a license key.</span>
+        </span>
+      </a>
+      <a class="modal-choice" href="https://playwithcrema.lemonsqueezy.com/checkout/buy/45aceca6-81d2-469c-89e1-e579fa28d734" target="_blank" rel="noopener">
+        <span class="mc-emoji">🐾</span>
+        <span>
+          <span class="mc-title" data-i18n="modalCustomTitle">Design your own pet</span>
+          <span class="mc-desc" data-i18n="modalCustomDesc">Send a few photos — we hand-craft your own pet onto your desktop.</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
   <footer>
     <p class="req" data-i18n="footReq">For Mac &amp; Windows.</p>
     <p style="margin-bottom:8px;">
@@ -285,6 +349,12 @@
       heroCustomLink: "🐾 …or move your own pet in →",
       buy: "Buy a License",
       buySub: "Unlock the full version with a license key — enter it via right-click → “Enter License”. Have a promo code? Use it at checkout.",
+      modalTitle: "What would you like?",
+      modalSub: "Two different things — pick one.",
+      modalBuyTitle: "Buy Crema, the dog",
+      modalBuyDesc: "Unlock the desktop dog you just downloaded with a license key.",
+      modalCustomTitle: "Design your own pet",
+      modalCustomDesc: "Send a few photos — we hand-craft your own pet onto your desktop.",
       featTitle: "What Crema does",
       f1t: "Naps while you type", f1d: "Curls up beside your work and sleeps until you stop typing.",
       f2t: "Sits when you click", f2d: "Click Crema and it sits down to look at you.",
@@ -316,6 +386,12 @@
       heroCustomLink: "🐾 …或者让你家那只也搬进来 →",
       buy: "购买激活码",
       buySub: "用激活码解锁完整版 —— 右键狗狗 →「输入激活码」。有优惠码？结账时输入即可。",
+      modalTitle: "你想要哪一种？",
+      modalSub: "两件不同的东西 —— 选一个。",
+      modalBuyTitle: "购买 Crema 小狗",
+      modalBuyDesc: "用激活码解锁你刚下载的这只桌面小狗。",
+      modalCustomTitle: "设计你自己的宠物",
+      modalCustomDesc: "上传几张照片 —— 我们手工把你家那只搬到你的桌面上。",
       featTitle: "Crema 会做什么",
       f1t: "打字时它睡觉", f1d: "蜷在你手边睡着，直到你停下打字。",
       f2t: "点它就坐下", f2d: "点一下 Crema，它就坐下看着你。",
@@ -347,6 +423,12 @@
       heroCustomLink: "🐾 …または、うちの子もパソコンに引っ越し →",
       buy: "ライセンスを購入",
       buySub: "ライセンスキーで完全版を解除 —— 右クリック →「ライセンス入力」。プロモコードはチェックアウトで入力。",
+      modalTitle: "どちらをご希望ですか？",
+      modalSub: "2つの別のもの —— どちらか選んでください。",
+      modalBuyTitle: "Crema（犬）を購入",
+      modalBuyDesc: "ダウンロードしたデスクトップ犬を、ライセンスキーで解除します。",
+      modalCustomTitle: "あなたのペットをつくる",
+      modalCustomDesc: "写真を数枚送るだけ —— うちの子を手作業でデスクトップにお届け。",
       featTitle: "Crema にできること",
       f1t: "入力中は眠る", f1d: "作業のそばで丸くなり、入力をやめるまで眠ります。",
       f2t: "クリックで座る", f2d: "Crema をクリックすると座って見上げます。",
@@ -378,6 +460,12 @@
       heroCustomLink: "🐾 …또는 우리 아이도 컴퓨터로 이사 →",
       buy: "라이선스 구매",
       buySub: "라이선스 키로 정식 버전 잠금 해제 —— 우클릭 →「라이선스 입력」. 프로모 코드는 결제 시 입력하세요.",
+      modalTitle: "무엇을 원하시나요?",
+      modalSub: "서로 다른 두 가지 —— 하나를 고르세요.",
+      modalBuyTitle: "Crema 강아지 구매",
+      modalBuyDesc: "방금 다운로드한 데스크톱 강아지를 라이선스 키로 잠금 해제해요.",
+      modalCustomTitle: "나만의 반려동물 만들기",
+      modalCustomDesc: "사진 몇 장만 보내면 —— 우리 아이를 손수 만들어 데스크톱으로.",
       featTitle: "Crema가 하는 일",
       f1t: "타이핑하면 잠자기", f1d: "작업 옆에서 웅크려 자다가 타이핑을 멈추면 깨어나요.",
       f2t: "클릭하면 앉기", f2d: "Crema를 클릭하면 앉아서 올려다봐요.",
@@ -409,6 +497,12 @@
       heroCustomLink: "🐾 …o trae a tu propia mascota a tu escritorio →",
       buy: "Comprar licencia",
       buySub: "Desbloquea la versión completa con una clave —— clic derecho →「Introducir licencia」. ¿Tienes un código promocional? Úsalo al pagar.",
+      modalTitle: "¿Qué te gustaría?",
+      modalSub: "Dos cosas distintas —— elige una.",
+      modalBuyTitle: "Comprar Crema, el perro",
+      modalBuyDesc: "Desbloquea con una clave el perro de escritorio que acabas de descargar.",
+      modalCustomTitle: "Diseña tu propia mascota",
+      modalCustomDesc: "Envía unas fotos —— creamos a mano tu mascota en tu escritorio.",
       featTitle: "Qué hace Crema",
       f1t: "Duerme mientras escribes", f1d: "Se acurruca junto a tu trabajo y duerme hasta que dejas de escribir.",
       f2t: "Se sienta al hacer clic", f2d: "Haz clic en Crema y se sienta a mirarte.",
@@ -466,6 +560,15 @@
 
   document.getElementById("langSelect").addEventListener("change", e => applyLang(e.target.value));
   applyLang(pickLang());
+
+  // 付费选择弹窗：两个付费按钮都先问「买 Crema 还是设计自己的」
+  const buyModal = document.getElementById("buyModal");
+  const openModal = () => buyModal.classList.add("open");
+  const closeModal = () => buyModal.classList.remove("open");
+  document.querySelectorAll("[data-open-buy]").forEach(b => b.addEventListener("click", openModal));
+  document.querySelectorAll("[data-close-buy]").forEach(b => b.addEventListener("click", closeModal));
+  buyModal.addEventListener("click", e => { if (e.target === buyModal) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
   </script>
 </body>
 </html>
